@@ -5,8 +5,7 @@ from .models import *
 from .serializers import *
 from .ai import (
     get_cosine_similarity,
-    get_bleu_similarity,
-    get_Word2Vec_similarity
+    get_bleu_similarity
 )
 
 
@@ -111,17 +110,11 @@ class UserAnswerAPIView(APIView):
             actual_texts=actual_answers
         )
 
-        Word2Vec_similarity = get_Word2Vec_similarity(
-            user_text=user_answer,
-            actual_texts=actual_answers
-        )
-
         return Response(data={
             'title': user_answer,
             'question_id': question_id,
             'cosine_similarity': cosine_similarity,
             'bleu_similarity': bleu_similarity,
-            'Word2Vec_similarity': Word2Vec_similarity
         })
 
 
