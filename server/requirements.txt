@@ -6,3 +6,4 @@ markdown==3.7
 scikit-learn
 whitenoise
 gunicorn
+uvicorn
