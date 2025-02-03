@@ -6,7 +6,7 @@ SECRET_KEY = 'django-insecure-3v+l_*fju=a)3#4i^i7_sukfw%wa!9!_hy3uq%8c6q9wz6@f&6
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["ai-qa-checker.onrender.com"]
+ALLOWED_HOSTS = ["ai-qa-checker.onrender.com", "localhost"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',

@@ -7,7 +7,7 @@ import { Loader } from "./components/Loader";
 
 function App() {
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full bg-base-100">
       <Navbar />
       <Routes>
         <Route

@@ -85,8 +85,14 @@ const Answer2Question = () => {
             <span className="text-primary loading loading-spinner loading-lg"></span>
           ) : !isIdle ? (
             <div className="text-success font-semibold">
-              Kosinus o'xshashligi:{" "}
-              {Math.round((resultData?.score || 0) * 1000) / 1000}
+              <div>
+                Kosinus o'xshashligi:{" "}
+                {Math.round((resultData?.cosine_similarity || 0) * 1000) / 1000}
+              </div>
+              <div>
+                BLEU o'xshashligi:{" "}
+                {Math.round((resultData?.bleu_similarity || 0) * 1000) / 1000}
+              </div>
             </div>
           ) : null}
         </div>
