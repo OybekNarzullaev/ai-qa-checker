@@ -1,6 +1,5 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-import gensim.downloader as api
 import nltk
 from nltk.translate.bleu_score import sentence_bleu
 
