@@ -4,7 +4,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 def get_cosine_similarity(user_text='', actual_texts=[]):
     max_cosine_similarity = 0
-    vectorizer = TfidfVectorizer()
+    vectorizer = TfidfVectorizer(analyzer='word')
     for a in actual_texts:
         tfidf_matrix = vectorizer.fit_transform([user_text, a])
 
