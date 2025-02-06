@@ -22,6 +22,19 @@ def get_cosine_similarity(user_text='', actual_texts=[]):
 def get_bleu_similarity(user_text='', actual_texts=[]):
     reference = []
     for t in actual_texts:
-        reference.append(t.split())
+        sentences = t.split('.')
+        for s in sentences:
+            reference.append(s.split())
     candidate = user_text.split()
-    return sentence_bleu(reference, candidate)
+    return sentence_bleu(reference, candidate, weights=(1, 0, 0, 0))
+
+
+def get_jaccard_similarity(user_text='', actual_texts=[]):
+    max_val = 0
+    for t in actual_texts:
+        intersection = len(set(t.split()).intersection(user_text.split()))
+        union = len(set(t.split()).union(user_text.split()))
+        if max_val < intersection / union:
+            max_val = intersection / union
+    # Jaccard o'xshashligini hisoblash
+    return max_val

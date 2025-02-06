@@ -8,3 +8,5 @@ nltk
 whitenoise
 gunicorn
 uvicorn
+openai
+python-dotenv
