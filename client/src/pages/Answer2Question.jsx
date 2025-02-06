@@ -93,6 +93,11 @@ const Answer2Question = () => {
                 BLEU o'xshashligi:{" "}
                 {Math.round((resultData?.bleu_similarity || 0) * 1000) / 1000}
               </div>
+              <div>
+                Jaccard o'xshashligi:{" "}
+                {Math.round((resultData?.jaccard_similarity || 0) * 1000) /
+                  1000}
+              </div>
             </div>
           ) : null}
         </div>
