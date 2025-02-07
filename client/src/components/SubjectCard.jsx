@@ -1,9 +1,8 @@
 import { FaBook } from "react-icons/fa";
-import { Link } from "react-router";
 
-export const SubjectCard = ({ data, link }) => {
+export const SubjectCard = ({ data, onBegin = () => {} }) => {
   return (
-    <div className="card bg-base-100 w-96 shadow-xl">
+    <div className="card w-96 shadow-xl bg-base">
       <figure className="px-10 pt-10">
         <FaBook className="text-9xl" />
       </figure>
@@ -11,9 +10,9 @@ export const SubjectCard = ({ data, link }) => {
         <h2 className="card-title capitalize">{data.name}</h2>
         <p>Savollar soni: {data.questions_count} ta</p>
         <div className="card-actions">
-          <Link to={link} className="btn btn-primary">
+          <button onClick={onBegin} className="btn btn-primary">
             Boshlash
-          </Link>
+          </button>
         </div>
       </div>
     </div>

@@ -27,7 +27,7 @@ const SubjectQuestions = () => {
         title={data?.subject?.name || "Savollar"}
         breadcrumbs={[{ name: data?.subject?.name || "Savollar" }]}
       />
-      <div className="lg:p-10 sm:p-3 md:p-5 flex flex-wrap items-center">
+      <div className="lg:p-10 sm:p-3 md:p-5 flex gap-3 flex-wrap items-center">
         {isLoading && <Loader title="Savollar yuklanmoqda..." />}
         {data?.questions?.map((q) => (
           <QuestionCard

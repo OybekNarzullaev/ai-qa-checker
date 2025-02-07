@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 export const QuestionCard = ({ data, link }) => {
   return (
-    <div className="card card-side bg-base-100 shadow-xl relative">
+    <div className="card card-side bg-base shadow-xl relative">
       <div className="absolute top-[-0.5rem] left-[-0.5rem] p-2 rounded-md bg-primary text-primary-content">
         <FaQuestion className="text-4xl " />
       </div>
