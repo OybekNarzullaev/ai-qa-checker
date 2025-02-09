@@ -7,7 +7,7 @@ const useStore = create((set) => ({
   setTheme: (theme) =>
     set((state) => {
       setLocalStorage("mytheme", theme);
-      document.documentElement.setAttribute("data-mytheme", theme);
+      document.getElementById("root").setAttribute("data-theme", theme);
       return {
         ...state,
         theme,
@@ -18,14 +18,14 @@ const useStore = create((set) => ({
       const prevTheme = getLocalStorage("mytheme") || "light";
       if (prevTheme === "light") {
         setLocalStorage("mytheme", "dark");
-        document.documentElement.setAttribute("data-mytheme", "dark");
+        document.getElementById("root").setAttribute("data-theme", "dark");
         return {
           ...state,
           theme: "dark",
         };
       } else {
         setLocalStorage("mytheme", "light");
-        document.documentElement.setAttribute("data-mytheme", "light");
+        document.getElementById("root").setAttribute("data-theme", "light");
         return {
           ...state,
           theme: "light",
