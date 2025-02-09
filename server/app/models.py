@@ -49,8 +49,22 @@ class Answer(models.Model):
         return self.title
 
 
+class User(models.Model):
+    fullname = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.fullname
+
+
 class UserAnswer(models.Model):
-    title = models.TextField()
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='user_answers'
+    )
+    user_text = models.TextField(default='')
     question = models.ForeignKey(
         Question,
         on_delete=models.PROTECT,
@@ -61,16 +75,22 @@ class UserAnswer(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.title
+        return self.user_text
 
 
 class UserResult(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='user_results'
+    )
     subject = models.ForeignKey(
         Subject,
         on_delete=models.PROTECT,
         related_name='user_results'
     )
     avg_score = models.FloatField(default=0)
+    grade = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

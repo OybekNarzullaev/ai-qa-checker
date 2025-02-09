@@ -7,7 +7,7 @@ import { LoginModal, toggleLoginModal } from "../components/LoginModal";
 import { useState } from "react";
 
 const Main = () => {
-  const [selectedSubjectId, setSelectedSubjectId] = useState(undefined);
+  const [subjectId, setSubjectId] = useState(undefined);
   const {
     data = [],
     isLoading,
@@ -17,9 +17,6 @@ const Main = () => {
     queryFn: fetchSubjects,
   });
 
-  const onBegin = () => {
-    window.location.replace(`/answer2question?subject_id=${selectedSubjectId}`);
-  };
   return (
     <>
       <PageTitle
@@ -27,14 +24,14 @@ const Main = () => {
         isLoading={isLoading}
         title="Sohalar"
       />
-      <LoginModal onBegin={onBegin} />
-      <div className="lg:p-10 sm:p-3 md:p-5 flex flex-wrap items-center">
+      <LoginModal subjectId={subjectId} />
+      <div className="lg:p-10 sm:p-3 md:p-5 flex flex-wrap gap-2 items-center">
         {isLoading && <Loader title="Sohalar yuklanmoqda..." />}
         {data?.map((s) => (
           <SubjectCard
             onBegin={() => {
               toggleLoginModal();
-              setSelectedSubjectId(s.id);
+              setSubjectId(s.id);
             }}
             data={s}
             key={s.id}

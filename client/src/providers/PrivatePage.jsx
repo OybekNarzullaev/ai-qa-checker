@@ -2,7 +2,7 @@ import { getUser } from "../utils/functions";
 
 export const PrivatePage = ({ children }) => {
   const user = getUser();
-  if (user?.firstname && user?.lastname) return children;
+  if (user?.fullname && user?.id) return children;
   else
     return (
       <div className="p-5">

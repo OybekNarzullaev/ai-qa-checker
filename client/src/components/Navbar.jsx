@@ -1,28 +1,27 @@
+import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { Link } from "react-router";
+import { useTheme } from "../hooks/useTheme";
 
 export const Navbar = () => {
+  const { theme, toggleTheme } = useTheme();
   return (
-    <div className="navbar bg-primary text-primary-content">
+    <div className="navbar bg-primary text-primary-content sticky top-0 z-[10]">
       <div className="flex-1">
         <Link to={"/"} className="btn btn-ghost text-xl">
           Xush kelibsiz
         </Link>
       </div>
       <div className="flex-none">
-        <button className="btn btn-square btn-ghost">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            className="inline-block h-5 w-5 stroke-current"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-            ></path>
-          </svg>
+        <button onClick={toggleTheme} className="btn btn-ghost">
+          {theme === "light" ? (
+            <>
+              <MdDarkMode /> Tungi rejim
+            </>
+          ) : (
+            <>
+              <MdLightMode /> Kunduzgi rejim
+            </>
+          )}
         </button>
       </div>
     </div>

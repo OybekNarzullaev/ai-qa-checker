@@ -1,14 +1,14 @@
 import { Route, Routes } from "react-router";
 import "./App.css";
 import { Navbar } from "./components/Navbar";
-import { Answer2Question, Main, SubjectQuestions } from "./pages";
+import { Answer2Question, Main, MyResults } from "./pages";
 import { Suspense } from "react";
 import { Loader } from "./components/Loader";
 import { PrivatePage } from "./providers/PrivatePage";
 
 function App() {
   return (
-    <div className="h-full w-full">
+    <div className="min-h-full w-full bg-base-300 relative">
       <Navbar />
       <div className="p-3 lg:p-5">
         <Routes>
@@ -20,20 +20,23 @@ function App() {
               </Suspense>
             }
           />
-          <Route
-            path="/subject_questions"
-            element={
-              <Suspense fallback={<Loader />}>
-                <SubjectQuestions />
-              </Suspense>
-            }
-          />
+
           <Route
             path="/answer2question"
             element={
               <Suspense fallback={<Loader />}>
                 <PrivatePage>
                   <Answer2Question />
+                </PrivatePage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/my_results"
+            element={
+              <Suspense fallback={<Loader />}>
+                <PrivatePage>
+                  <MyResults />
                 </PrivatePage>
               </Suspense>
             }

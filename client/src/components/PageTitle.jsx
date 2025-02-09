@@ -8,7 +8,7 @@ export const PageTitle = ({
 }) => {
   return (
     <div className="p-5">
-      <h2 className="text-4xl font-semibold first-letter:capitalize">
+      <h2 className="lg:text-4xl text-xl font-semibold first-letter:capitalize">
         {title}
       </h2>
       {!isLoading && isFetching && <span>Yangilanmoqda...</span>}

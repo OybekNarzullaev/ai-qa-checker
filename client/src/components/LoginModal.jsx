@@ -1,11 +1,13 @@
 import { useForm } from "react-hook-form";
-import { setUser } from "../utils/functions";
+import { setLocalStorage } from "../utils/functions";
+import { useMutation } from "@tanstack/react-query";
+import { startExamAPI } from "../api/exam";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const toggleLoginModal = () =>
   document.getElementById("login_modal").click();
 
-export const LoginModal = ({ onBegin }) => {
+export const LoginModal = ({ subjectId }) => {
   const {
     register,
     handleSubmit,
@@ -13,9 +15,27 @@ export const LoginModal = ({ onBegin }) => {
     formState: { errors },
   } = useForm();
 
+  const { isPending, mutate } = useMutation({
+    mutationKey: [
+      "start examp",
+      subjectId,
+      getValues("firstname"),
+      getValues("lastname"),
+    ],
+    mutationFn: () =>
+      startExamAPI({
+        firstname: getValues("firstname"),
+        lastname: getValues("lastname"),
+        subject_id: subjectId,
+      }).then((data) => {
+        setLocalStorage("user", data.user);
+        setLocalStorage("data", { ...data, scores: [] });
+        window.location.replace(`/answer2question`);
+      }),
+  });
+
   const onSubmit = () => {
-    setUser(getValues("firstname"), getValues("lastname"));
-    onBegin();
+    mutate();
   };
   return (
     <>
@@ -54,10 +74,15 @@ export const LoginModal = ({ onBegin }) => {
               )}
             </div>
             <div className="flex gap-3 mt-3">
-              <button type="submit" className="btn btn-primary">
+              <button
+                disabled={isPending}
+                type="submit"
+                className="btn btn-primary"
+              >
                 Boshlash
               </button>
               <button
+                disabled={isPending}
                 type="button"
                 className="btn btn-warning"
                 onClick={toggleLoginModal}

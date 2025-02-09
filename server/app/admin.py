@@ -3,12 +3,14 @@ from .models import *
 
 
 class SubjectAdmin(admin.ModelAdmin):
+    search_fields = ('name',)
     list_display = [
         'name',
     ]
 
 
 class LevelAdmin(admin.ModelAdmin):
+    search_fields = ('name',)
     list_display = [
         'name',
         'code',
@@ -16,6 +18,8 @@ class LevelAdmin(admin.ModelAdmin):
 
 
 class QuestionAdmin(admin.ModelAdmin):
+    list_filter = ('subject', 'level')
+    search_fields = ('title',)
     list_display = [
         'title',
         'level',
@@ -26,6 +30,8 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 class AnswerAdmin(admin.ModelAdmin):
+    list_filter = ('question',)
+    search_fields = ('title',)
     list_display = [
         'title',
         'question',
@@ -34,9 +40,25 @@ class AnswerAdmin(admin.ModelAdmin):
     ]
 
 
-class UserAnswerAdmin(admin.ModelAdmin):
+class UserAdmin(admin.ModelAdmin):
+    search_fields = ('fullname',)
     list_display = [
-        'title',
+        'fullname',
+        'created_at',
+        'updated_at',
+    ]
+
+
+class UserAnswerAdmin(admin.ModelAdmin):
+    search_fields = ('user_text', 'firstname', 'lastname')
+    list_display = [
+        'question',
+        'user',
+        'user_text',
+        'score',
+        'created_at',
+        'updated_at',
+        'user_text',
     ]
 
 
@@ -50,5 +72,6 @@ admin.site.register(Subject, SubjectAdmin)
 admin.site.register(Level, LevelAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Answer, AnswerAdmin)
+admin.site.register(User, UserAdmin)
 admin.site.register(UserAnswer, UserAnswerAdmin)
 admin.site.register(UserResult, UserResultAdmin)
