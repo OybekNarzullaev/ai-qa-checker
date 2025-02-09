@@ -3,11 +3,11 @@ import { getLocalStorage, setLocalStorage } from "../utils/functions";
 import { useEffect } from "react";
 
 const useStore = create((set) => ({
-  theme: getLocalStorage("theme") || "light",
+  theme: getLocalStorage("mytheme") || "light",
   setTheme: (theme) =>
     set((state) => {
-      setLocalStorage("theme", theme);
-      document.documentElement.setAttribute("data-theme", theme);
+      setLocalStorage("mytheme", theme);
+      document.documentElement.setAttribute("data-mytheme", theme);
       return {
         ...state,
         theme,
@@ -15,17 +15,17 @@ const useStore = create((set) => ({
     }),
   toggleTheme: () =>
     set((state) => {
-      const prevTheme = getLocalStorage("theme") || "light";
+      const prevTheme = getLocalStorage("mytheme") || "light";
       if (prevTheme === "light") {
-        setLocalStorage("theme", "dark");
-        document.documentElement.setAttribute("data-theme", "dark");
+        setLocalStorage("mytheme", "dark");
+        document.documentElement.setAttribute("data-mytheme", "dark");
         return {
           ...state,
           theme: "dark",
         };
       } else {
-        setLocalStorage("theme", "light");
-        document.documentElement.setAttribute("data-theme", "light");
+        setLocalStorage("mytheme", "light");
+        document.documentElement.setAttribute("data-mytheme", "light");
         return {
           ...state,
           theme: "light",
