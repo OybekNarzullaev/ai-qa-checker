@@ -27,12 +27,7 @@ const Answer2Question = () => {
     formState: { errors },
   } = useForm();
 
-  const {
-    mutate,
-    data: resultData,
-    isPending: isPending,
-    isIdle,
-  } = useMutation({
+  const { mutate, isPending: isPending } = useMutation({
     mutationKey: ["checkAnswer", currectQuestion.id],
     mutationFn: () =>
       checkAnswer({
@@ -147,23 +142,6 @@ const Answer2Question = () => {
             </button>
             {isPending ? (
               <span className="text-primary loading loading-spinner loading-lg"></span>
-            ) : !isIdle ? (
-              <div className="text-success font-semibold">
-                <div>
-                  Kosinus o'xshashligi:{" "}
-                  {Math.round((resultData?.cosine_similarity || 0) * 1000) /
-                    1000}
-                </div>
-                <div>
-                  BLEU o'xshashligi:{" "}
-                  {Math.round((resultData?.bleu_similarity || 0) * 1000) / 1000}
-                </div>
-                <div>
-                  Jaccard o'xshashligi:{" "}
-                  {Math.round((resultData?.jaccard_similarity || 0) * 1000) /
-                    1000}
-                </div>
-              </div>
             ) : null}
           </div>
         </form>
