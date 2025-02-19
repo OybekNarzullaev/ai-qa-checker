@@ -5,6 +5,10 @@ import { Loader } from "../components/Loader";
 import { PageTitle } from "../components/PageTitle";
 import { LoginModal, toggleLoginModal } from "../components/LoginModal";
 import { useState } from "react";
+import {
+  LoginModalQuiz,
+  toggleLoginModalQuiz,
+} from "../components/LoginModalQuiz";
 
 const Main = () => {
   const [subjectId, setSubjectId] = useState(undefined);
@@ -25,12 +29,17 @@ const Main = () => {
         title="Sohalar"
       />
       <LoginModal subjectId={subjectId} />
+      <LoginModalQuiz subjectId={subjectId} />
       <div className="lg:p-10 sm:p-3 md:p-5 flex flex-wrap gap-2 items-center">
         {isLoading && <Loader title="Sohalar yuklanmoqda..." />}
         {data?.map((s) => (
           <SubjectCard
             onBegin={() => {
               toggleLoginModal();
+              setSubjectId(s.id);
+            }}
+            onBeginQuiz={() => {
+              toggleLoginModalQuiz();
               setSubjectId(s.id);
             }}
             data={s}

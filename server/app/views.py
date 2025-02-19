@@ -27,6 +27,7 @@ class UserStartExamAPIView(APIView):
         firstname = request.data.get('firstname')
         lastname = request.data.get('lastname')
         subject_id = request.data.get('subject_id')
+        type_quiz = request.data.get('type_quiz')
 
         subject = Subject.objects.get(id=subject_id)
 
@@ -51,9 +52,47 @@ class UserStartExamAPIView(APIView):
         user = UserSerializer(user, many=False).data
         subject = SubjectSerializer(subject, many=False).data
 
-        questions_l1 = Question.objects.filter(level=Level.objects.get(code=1))
-        questions_l2 = Question.objects.filter(level=Level.objects.get(code=2))
-        questions_l3 = Question.objects.filter(level=Level.objects.get(code=3))
+        if type_quiz == 'open':
+            questions_l1 = QuizQuestion.objects.filter(
+                subject_id=subject_id, level=Level.objects.get(code=1))
+            questions_l2 = QuizQuestion.objects.filter(
+                subject_id=subject_id, level=Level.objects.get(code=2))
+            questions_l3 = QuizQuestion.objects.filter(
+                subject_id=subject_id, level=Level.objects.get(code=3))
+
+            question_data = []
+            for i in range(questions_l1.count()):
+                q1 = QuizQuestionSerializer(questions_l1[i], many=False).data
+                ans = QuizAnswer.objects.filter(
+                    question_id=q1['id']).order_by('?')
+                q1['answers'] = QuizAnswerSerializer(ans, many=True).data
+                q1['score'] = None
+                q2 = QuizQuestionSerializer(questions_l2[i], many=False).data
+                ans = QuizAnswer.objects.filter(
+                    question_id=q2['id']).order_by('?')
+                q2['answers'] = QuizAnswerSerializer(ans, many=True).data
+                q2['score'] = None
+                q3 = QuizQuestionSerializer(questions_l3[i], many=False).data
+                ans = QuizAnswer.objects.filter(
+                    question_id=q3['id']).order_by('?')
+                q3['answers'] = QuizAnswerSerializer(ans, many=True).data
+                q3['score'] = None
+                question_data.append({
+                    'max_score': 0,
+                    'questions': [q1, q2, q3]
+                })
+            return Response(data={
+                'user': user,
+                'question_data': question_data,
+                'subject': subject
+            })
+
+        questions_l1 = Question.objects.filter(
+            subject_id=subject_id, level=Level.objects.get(code=1))
+        questions_l2 = Question.objects.filter(
+            subject_id=subject_id, level=Level.objects.get(code=2))
+        questions_l3 = Question.objects.filter(
+            subject_id=subject_id, level=Level.objects.get(code=3))
 
         question_data = []
         for i in range(questions_l1.count()):

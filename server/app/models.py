@@ -35,6 +35,25 @@ class Question(models.Model):
         return self.title
 
 
+class QuizQuestion(models.Model):
+    title = models.TextField()
+    level = models.ForeignKey(
+        Level,
+        on_delete=models.PROTECT,
+        related_name='quiz_questions'
+    )
+    subject = models.ForeignKey(
+        Subject,
+        on_delete=models.PROTECT,
+        related_name='quiz_questions'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+
 class Answer(models.Model):
     title = models.TextField()
     question = models.ForeignKey(
@@ -42,6 +61,21 @@ class Answer(models.Model):
         on_delete=models.PROTECT,
         related_name='answers'
     )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+
+class QuizAnswer(models.Model):
+    title = models.TextField()
+    question = models.ForeignKey(
+        QuizQuestion,
+        on_delete=models.PROTECT,
+        related_name='answers'
+    )
+    is_true = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -67,6 +101,26 @@ class UserAnswer(models.Model):
     user_text = models.TextField(default='')
     question = models.ForeignKey(
         Question,
+        on_delete=models.PROTECT,
+        related_name='user_answers'
+    )
+    score = models.FloatField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.user_text
+
+
+class UserQuizAnswer(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='user_quiz_answers'
+    )
+    user_text = models.TextField(default='')
+    question = models.ForeignKey(
+        QuizQuestion,
         on_delete=models.PROTECT,
         related_name='user_answers'
     )

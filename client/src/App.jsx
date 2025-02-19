@@ -1,7 +1,13 @@
 import { Route, Routes } from "react-router";
 import "./App.css";
 import { Navbar } from "./components/Navbar";
-import { Answer2Question, Main, MyResults } from "./pages";
+import {
+  Answer2Question,
+  Answer2QuizQuestion,
+  Main,
+  MyQuizResults,
+  MyResults,
+} from "./pages";
 import { Suspense } from "react";
 import { Loader } from "./components/Loader";
 import { PrivatePage } from "./providers/PrivatePage";
@@ -37,6 +43,26 @@ function App() {
               <Suspense fallback={<Loader />}>
                 <PrivatePage>
                   <MyResults />
+                </PrivatePage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/my_quiz_results"
+            element={
+              <Suspense fallback={<Loader />}>
+                <PrivatePage>
+                  <MyQuizResults />
+                </PrivatePage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/answer2quizquestion"
+            element={
+              <Suspense fallback={<Loader />}>
+                <PrivatePage>
+                  <Answer2QuizQuestion />
                 </PrivatePage>
               </Suspense>
             }

@@ -1,6 +1,11 @@
 import { axiosInstance } from "./core";
 
-export const startExamAPI = async ({ firstname, lastname, subject_id }) => {
+export const startExamAPI = async ({
+  firstname,
+  lastname,
+  subject_id,
+  type_quiz = "",
+}) => {
   return axiosInstance({
     method: "post",
     url: "start_exam/",
@@ -8,6 +13,7 @@ export const startExamAPI = async ({ firstname, lastname, subject_id }) => {
       firstname,
       lastname,
       subject_id,
+      type_quiz,
     },
   }).then((res) => res.data);
 };

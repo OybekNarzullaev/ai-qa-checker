@@ -23,11 +23,28 @@ class QuestionSerializer(ModelSerializer):
         fields = '__all__'
 
 
+class QuizQuestionSerializer(ModelSerializer):
+    level = LevelSerializer()
+    subject = SubjectSerializer()
+
+    class Meta:
+        model = QuizQuestion
+        fields = '__all__'
+
+
 class AnswerSerializer(ModelSerializer):
     question = QuestionSerializer()
 
     class Meta:
         model = Answer
+        fields = '__all__'
+
+
+class QuizAnswerSerializer(ModelSerializer):
+    question = QuestionSerializer()
+
+    class Meta:
+        model = QuizAnswer
         fields = '__all__'
 
 
@@ -43,6 +60,15 @@ class UserAnswerSerializer(ModelSerializer):
 
     class Meta:
         model = UserAnswer
+        fields = '__all__'
+
+
+class UserQuizAnswerSerializer(ModelSerializer):
+    question = QuestionSerializer()
+    user = UserSerializer()
+
+    class Meta:
+        model = UserQuizAnswer
         fields = '__all__'
 
 
